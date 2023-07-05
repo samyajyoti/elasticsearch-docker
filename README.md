@@ -29,7 +29,9 @@ Most examples require only a single Elasticsearch instance, therefore it's suffi
 
 ```sudo sysctl -w vm.max_map_count=262144```
 
-4.```docker-compose up -d --build```
+4.To build elastic and kibana run
+
+```docker-compose up -d --build```
 
 You can see elastic container up but kibana is showing elastic user authentication not found
 
@@ -40,6 +42,10 @@ You can see elastic container up but kibana is showing elastic user authenticati
 After generating the password update the  password in docker compose file and do <br>
 ```docker-compose restart or docker-compose down and docker compose up -d```
 
+
+6.Hoping Nginx is installed in the server <br>
+
+Copy the Nginx-elastic and kibana conf to the nginx conf directory 
 
 
 
