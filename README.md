@@ -9,7 +9,7 @@ And Kibana instance  (7.16.1)
 
 After complete setup  Elasticsearch and Kibana will be available in internet as
 
-https://elastic.example.com
+https://elastic.example.com <br>
 https://kibana.example.com
 
 
