@@ -25,17 +25,18 @@ Most examples require only a single Elasticsearch instance, therefore it's suffi
 
 **NOTE**: user server certs as per your company use(you need crt and key file), update the filename in docker compose file
 
-3.Before build run this command in linux server to set the vm max memory
+3.Before build run this command in linux server to set the vm max memory <br>
 
 ```sudo sysctl -w vm.max_map_count=262144```
-
-4.To build elastic and kibana run
+4.To create the ca crt run <br>
+```docker-compose -f create-certs.yml run --rm create_certs```
+5.To build elastic and kibana run
 
 ```docker-compose up -d --build```
 
 You can see elastic container up but kibana is showing elastic user authentication not found
 
-5.Run this command to generate the elastic user password,
+6.Run this command to generate the elastic user password,
 
 ```docker exec es01 /bin/bash -c "bin/elasticsearch-setup-passwords auto --batch --url https://localhost:9200"```
 
@@ -43,7 +44,7 @@ After generating the password update the  password in docker compose file and do
 ```docker-compose restart or docker-compose down and docker compose up -d```
 
 
-6.Hoping Nginx is installed in the server <br>
+7.Hoping Nginx is installed in the server <br>
 
 Copy the Nginx-elastic and kibana conf to the nginx conf directory 
 
