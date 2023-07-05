@@ -22,7 +22,6 @@ services:
       - xpack.security.transport.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
       - xpack.security.transport.ssl.certificate=$CERTS_DIR/es01/es01.crt
       - xpack.security.transport.ssl.key=$CERTS_DIR/es01/es01.key
-      - reindex.remote.whitelist=13.67.219.4:9200
       - reindex.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
       - http.cors.enabled=true
       - http.cors.allow-origin=*
