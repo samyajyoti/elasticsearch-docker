@@ -1,6 +1,6 @@
 # elasticsearch-docker
-Docker setup for Elasticsearch New VERSION=7.16.1 with TLS and Nginx Setup
-This is a Docker setup for the Elastic And Kibana stack, useful to  TEST And Production Environement
+Docker setup for Elasticsearch New VERSION=7.16.1 with TLS and Nginx Setup <br>
+This is a Docker setup for the Elastic And Kibana stack, useful to  TEST And Production Environement <br>
 
 The following Docker containers are available
 
