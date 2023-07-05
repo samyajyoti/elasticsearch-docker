@@ -1,0 +1,19 @@
+#
+# ** THIS IS AN AUTO-GENERATED FILE **
+#
+
+# Default Kibana configuration for docker target
+server.name: kibana
+server.host: "0"
+elasticsearch.hosts: [ "https://localhost:9200" ]
+xpack.monitoring.ui.container.elasticsearch.enabled: true
+xpack.reporting.csv.maxSizeBytes: "104857600"
+xpack.reporting.queue.timeout: "240000"
+xpack.reporting.csv.scroll.size: "10000"
+xpack.monitoring.enabled: true
+xpack.security.enabled: true
+xpack.encryptedSavedObjects.encryptionKey: "fa76e263c45fa49237fa48f5e85eeed6"
+xpack.reporting.encryptionKey: "0c311165bdb5a203a0423babb27af006"
+xpack.security.encryptionKey: "c44431804d1c62ecd2229a16eb5dab6b"
+
+

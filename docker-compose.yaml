@@ -1,0 +1,96 @@
+version: '2.2'
+
+services:
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${VERSION}
+    container_name: es01
+    restart: always
+    environment:
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - cluster.initial_master_nodes=es01
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms8g -Xmx8g -Dlog4j2.formatMsgNoLookups=true"
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.authc.api_key.enabled=true
+      - xpack.security.http.ssl.key=$CERTS_DIR/es01/es01.key
+      - xpack.security.http.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
+      - xpack.security.http.ssl.certificate=$CERTS_DIR/es01/es01.crt
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.verification_mode=certificate
+      - xpack.security.transport.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
+      - xpack.security.transport.ssl.certificate=$CERTS_DIR/es01/es01.crt
+      - xpack.security.transport.ssl.key=$CERTS_DIR/es01/es01.key
+      - reindex.remote.whitelist=13.67.219.4:9200
+      - reindex.ssl.certificate_authorities=$CERTS_DIR/ca/ca.crt
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - http.cors.allow-credentials=true
+      - http.cors.allow-methods=OPTIONS, HEAD, GET, POST, PUT, DELETE
+      - http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
+
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data01:/usr/share/elasticsearch/data
+      - certs:$CERTS_DIR
+      - ./server_certs:$CERTS_DIR/server_certs
+    ports:
+      - 9200:9200
+    network_mode: host
+
+        #    networks:
+        # - elastic
+
+        #    healthcheck:
+        #  test: curl --cacert $CERTS_DIR/ca/ca.crt -s https://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+        #  interval: 30s
+        # timeout: 10s
+        # retries: 5
+
+  kib01:
+    image: docker.elastic.co/kibana/kibana:${VERSION}
+    # image: kibana:7.6.2.1
+    container_name: kib01
+    restart: always
+    # depends_on: {"es01": {"condition": "service_healthy"}}
+    ports:
+      - 5601:5601
+    environment:
+      SERVERNAME: localhost
+      ELASTICSEARCH_URL: https://localhost:9200
+      ELASTICSEARCH_HOSTS: https://localhost:9200
+      ELASTICSEARCH_USERNAME: elastic
+      ELASTICSEARCH_PASSWORD: Mo5mEtiFupYSsI1PIalN
+      ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES: $CERTS_DIR/ca/ca.crt
+      SERVER_SSL_ENABLED: "true"
+      SERVER_SSL_KEY: $CERTS_DIR/server_certs/wrtual.in.key
+      SERVER_SSL_CERTIFICATE: $CERTS_DIR/server_certs/STAR_wrtual_in.chain.crt
+      #XPACK_MONITORING_ENABLED : "true"
+      #XPACK.REPORTING.CSV.MAXSIZEBYTES: "104857600"
+      #xpack_monitoring_enabled: "true"
+      #xpack.reporting.csv.maxsizebytes: "104857600"
+    volumes:
+      - certs:$CERTS_DIR
+      - ./server_certs:$CERTS_DIR/server_certs
+      - ./kibana.yml:/usr/share/kibana/config/kibana.yml
+    network_mode: host
+    
+        # networks:
+        #  - elastic
+
+volumes:
+  data01:
+    driver: local
+  certs:
+    driver: local
+  server_certs:
+    driver: local
+
+    #networks:
+    #  elastic:
+    #  driver: bridge
+
