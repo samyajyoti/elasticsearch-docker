@@ -27,18 +27,18 @@ Most examples require only a single Elasticsearch instance, therefore it's suffi
 
 3. Before build run this command in linux server to set the vm max memory
 
-```sudo sysctl -w vm.max_map_count=262144
+```sudo sysctl -w vm.max_map_count=262144```
 
-4.docker-compose up -d --build
+4.```docker-compose up -d --build```
 
 You can see elastic container up but kibana is showing elastic user authentication not found
 
 5.Run this command to generate the elastic user password,
 
-```docker exec es01 /bin/bash -c "bin/elasticsearch-setup-passwords auto --batch --url https://localhost:9200"
+```docker exec es01 /bin/bash -c "bin/elasticsearch-setup-passwords auto --batch --url https://localhost:9200"```
 
 After generating the password update the  password in docker compose file and do
-```docker-compose restart or docker-compose down and docker compose up -d
+```docker-compose restart or docker-compose down and docker compose up -d```
 
 
 
